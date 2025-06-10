@@ -29,7 +29,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "sv_SE.UTF-8";
     LC_IDENTIFICATION = "sv_SE.UTF-8";
@@ -46,6 +45,14 @@
   services.xserver.xkb = {
     layout = "se";
     variant = "";
+  };
+
+  services.syncthing = {
+    enable = true;
+    group = "users";
+    user = "mark";
+    dataDir = "/home/mark";    # Default folder for new synced folders
+    configDir = "/home/mark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
 
   # Configure console keymap
@@ -96,6 +103,9 @@
 
   programs.firefox.enable = true;
 
+  programs.fish.enable = true;
+
+  users.users.mark.shell = pkgs.fish;
 
   # List services that you want to enable:
   services.gnome.gnome-keyring.enable = true;
@@ -128,4 +138,7 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
+  # Laptop hardware settings
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = true;
 }
