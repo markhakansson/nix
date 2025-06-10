@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -14,14 +14,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Laptop-specific hardware settings
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  # Network
+  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -39,20 +37,6 @@
     LC_PAPER = "sv_SE.UTF-8";
     LC_TELEPHONE = "sv_SE.UTF-8";
     LC_TIME = "sv_SE.UTF-8";
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "se";
-    variant = "";
-  };
-
-  services.syncthing = {
-    enable = true;
-    group = "users";
-    user = "mark";
-    dataDir = "/home/mark";    # Default folder for new synced folders
-    configDir = "/home/mark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
 
   # Configure console keymap
@@ -75,18 +59,37 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+
+    # development
     git
-    grim
-    slurp
-    waybar
-    swaylock
-    wl-clipboard
-    mako
-    brightnessctl
-    helix
+
+    # apps
     keepassxc
+
+    # laptop
+    brightnessctl
+
+    # editor
+    helix
+    vim
+
+    # wm (sway)
+    grim
+    mako
+    slurp
+    swaylock
+    waybar
+    wl-clipboard
+    wofi
+
+    # terminal related
+    bat
+    eza
+    ripgrep
+    starship
+    tmux
+    zoxide
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -100,14 +103,32 @@
     enable = true;
     wrapperFeatures.gtk = true;
   };
-
   programs.firefox.enable = true;
-
   programs.fish.enable = true;
+  programs.starship.enable = true;
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/mark/nix";
+  };
+
+  # Font configuration
+  fonts.enableDefaultPackages = true;
+  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.sauce-code-pro
+    font-awesome
+  ];
 
   users.users.mark.shell = pkgs.fish;
 
-  # List services that you want to enable:
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "se";
+    variant = "";
+  };
+
   services.gnome.gnome-keyring.enable = true;
 
   # rtkit is optional but recommended
@@ -121,14 +142,13 @@
     #jack.enable = true;
   };
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  services.syncthing = {
+    enable = true;
+    group = "users";
+    user = "mark";
+    dataDir = "/home/mark";    # Default folder for new synced folders
+    configDir = "/home/mark/.config/syncthing";   # Folder for Syncthing's settings and keys
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -137,8 +157,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  # Laptop hardware settings
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.enableRedistributableFirmware = true;
 }
