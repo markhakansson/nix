@@ -16,13 +16,11 @@
   boot.initrd.systemd.enable = true;
 
   # Laptop-specific hardware settings
-  # hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # hardware related
   hardware.enableAllFirmware = true;
 
   # Network
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # Set your time zone.

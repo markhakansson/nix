@@ -6,10 +6,21 @@
   };
 
   outputs = { nixpkgs, ... } @ inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./configuration.nix
-      ];
+    nixosConfigurations = {
+      work = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/work/configuration.nix
+          { 
+            networking.hostName = "mark-workstation";
+          }
+        ];
+      };
+
+      laptop = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/laptop/configuration.nix
+        ];
+      };
     };
   };
 }
