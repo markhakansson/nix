@@ -13,10 +13,13 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.systemd.enable = true;
 
   # Laptop-specific hardware settings
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.enableRedistributableFirmware = true;
+  # hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # hardware related
+  hardware.enableAllFirmware = true;
 
   # Network
   networking.hostName = "nixos";
@@ -90,6 +93,8 @@
     starship
     tmux
     zoxide
+
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -150,6 +155,10 @@
     configDir = "/home/mark/.config/syncthing";   # Folder for Syncthing's settings and keys
   };
 
+  services.openssh = {
+    enable = true;
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -157,4 +166,14 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true; # Show battery charge of Bluetooth devices
+      };
+    };
+  };
 }
