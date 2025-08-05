@@ -74,6 +74,7 @@
     # editor
     helix
     vim
+    vscode
 
     # wm (sway)
     grim
