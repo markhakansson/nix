@@ -68,9 +68,6 @@
     # apps
     keepassxc
 
-    # laptop
-    brightnessctl
-
     # editor
     helix
     vim
@@ -88,12 +85,17 @@
     # terminal related
     bat
     eza
+    fd
     ripgrep
     starship
     tmux
     zoxide
 
+    # audio
     pavucontrol
+
+    # work
+    xchm
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
