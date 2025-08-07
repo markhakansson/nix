@@ -2,13 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -48,11 +53,17 @@
   users.users.mark = {
     isNormalUser = true;
     description = "Mark";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -150,8 +161,8 @@
     enable = true;
     group = "users";
     user = "mark";
-    dataDir = "/home/mark";    # Default folder for new synced folders
-    configDir = "/home/mark/.config/syncthing";   # Folder for Syncthing's settings and keys
+    dataDir = "/home/mark"; # Default folder for new synced folders
+    configDir = "/home/mark/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
 
   services.openssh = {
