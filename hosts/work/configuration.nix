@@ -78,6 +78,8 @@
   environment.systemPackages = with pkgs; [
     curl
     wget
+    fzf
+    unzip
 
     # development
     git
@@ -112,9 +114,12 @@
     # audio
     pavucontrol
 
+    # productivity
+    typst
+
     # work
     xchm
-    typst
+    kicad
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
