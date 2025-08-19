@@ -31,6 +31,15 @@
           ];
         };
 
+        elitebook = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/elitebook/configuration.nix
+            {
+              networking.hostName = "mark-worktop";
+            }
+          ];
+        };
+
         laptop = nixpkgs.lib.nixosSystem {
           modules = [
             ./hosts/laptop/configuration.nix
