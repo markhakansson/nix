@@ -83,6 +83,7 @@
 
     # development
     git
+    delta
 
     # apps
     keepassxc
@@ -116,10 +117,13 @@
 
     # productivity
     typst
+    python3
 
     # work
     xchm
     kicad
+    gtkwave
+    mumble
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -182,6 +186,16 @@
 
   services.openssh = {
     enable = true;
+  };
+
+  services.netbird = {
+    enable = true;
+
+    clients = {
+      kiteshield = {
+        port = 51820;
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
