@@ -32,10 +32,14 @@
         };
 
         elitebook = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
           modules = [
             ./hosts/elitebook/configuration.nix
             {
-              networking.hostName = "mark-worktop";
+              networking.hostName = "mark-elitebook";
             }
           ];
         };

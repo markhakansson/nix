@@ -15,7 +15,11 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.probe-rs-rules.nixosModules.${system}.default
   ];
+
+  # Enable tools that require udev rules
+  hardware.probe-rs.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -111,6 +115,16 @@
     flake = "/home/mark/nix";
   };
 
+  # Font configuration
+  fonts.enableDefaultPackages = true;
+  fonts.fontDir.enable = true;
+  fonts.packages = with pkgs; [
+    nerd-fonts.sauce-code-pro
+    font-awesome
+  ];
+
+  users.users.mark.shell = pkgs.fish;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -147,6 +161,13 @@
 
     # productivity
     python3
+    typst
+
+    # work
+    xchm
+    kicad
+    gtkwave
+    mumble
   ];
 
   services.syncthing = {
