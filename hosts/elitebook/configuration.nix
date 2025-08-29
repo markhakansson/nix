@@ -106,6 +106,7 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
   programs.nh = {
@@ -135,6 +136,10 @@
     curl
     wget
     fzf
+    jq
+
+    # gnome
+    xdg-desktop-portal-gnome
 
     # development
     git
@@ -169,6 +174,12 @@
     gtkwave
     mumble
   ];
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+    xdgOpenUsePortal = true;
+  };
 
   services.syncthing = {
     enable = true;
