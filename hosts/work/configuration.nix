@@ -31,6 +31,13 @@
 
   # Network
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [
+      10101
+      10102
+    ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -59,6 +66,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "wireshark"
     ];
     packages = with pkgs; [ ];
   };
@@ -78,6 +86,8 @@
     wget
     fzf
     unzip
+    jq
+    nettools
 
     # development
     git
@@ -86,6 +96,8 @@
     # apps
     keepassxc
     zathura
+    imv
+    htop
 
     # editor
     helix
@@ -143,6 +155,10 @@
     clean.enable = true;
     clean.extraArgs = "--keep-since 4d --keep 3";
     flake = "/home/mark/nix";
+  };
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
   };
 
   # Font configuration
