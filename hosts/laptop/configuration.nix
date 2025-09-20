@@ -19,14 +19,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Laptop-specific hardware settings
+  # Hardware related
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # hardware related
   hardware.enableAllFirmware = true;
 
   # Network
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -73,12 +70,19 @@
   environment.systemPackages = with pkgs; [
     curl
     wget
+    fzf
+    unzip
+    jq
+    nettools
 
     # development
     git
+    delta
 
     # apps
     keepassxc
+    imv
+    htop
 
     # laptop
     brightnessctl
@@ -99,11 +103,13 @@
     # terminal related
     bat
     eza
+    fd
     ripgrep
     starship
     tmux
     zoxide
 
+    # audio
     pavucontrol
   ];
 
