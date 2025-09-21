@@ -99,6 +99,8 @@
     waybar
     wl-clipboard
     wofi
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
 
     # terminal related
     bat
@@ -144,6 +146,8 @@
 
   users.users.mark.shell = pkgs.fish;
 
+  services.dbus.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "se";
@@ -173,6 +177,16 @@
 
   services.openssh = {
     enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
+    ];
+    xdgOpenUsePortal = true;
   };
 
   # This value determines the NixOS release from which the default
