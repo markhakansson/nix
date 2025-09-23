@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../modules/sway/default.nix
   ];
 
   # Bootloader.
@@ -91,17 +92,6 @@
     helix
     vim
 
-    # wm (sway)
-    grim
-    mako
-    slurp
-    swaylock
-    waybar
-    wl-clipboard
-    wofi
-    xdg-desktop-portal-wlr
-    xdg-desktop-portal-gtk
-
     # terminal related
     bat
     eza
@@ -115,17 +105,6 @@
     pavucontrol
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
   programs.firefox.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
@@ -177,16 +156,6 @@
 
   services.openssh = {
     enable = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-    ];
-    xdgOpenUsePortal = true;
   };
 
   # This value determines the NixOS release from which the default
