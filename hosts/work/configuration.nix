@@ -66,6 +66,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "storage"
       "wireshark"
     ];
     packages = with pkgs; [ ];
@@ -131,7 +132,7 @@
 
     # work
     xchm
-    kicad
+    # kicad
     gtkwave
     mumble
   ];
@@ -211,6 +212,9 @@
       };
     };
   };
+
+  # For automounting disks
+  services.udisks2.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
