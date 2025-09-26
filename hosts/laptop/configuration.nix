@@ -14,6 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/sway/default.nix
+    ../../users/mark.nix
   ];
 
   # Bootloader.
@@ -46,17 +47,6 @@
 
   # Configure console keymap
   console.keyMap = "sv-latin1";
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.mark = {
-    isNormalUser = true;
-    description = "Mark";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [ ];
-  };
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -108,12 +98,6 @@
   programs.firefox.enable = true;
   programs.fish.enable = true;
   programs.starship.enable = true;
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
-    flake = "/home/mark/nix";
-  };
 
   # Font configuration
   fonts.enableDefaultPackages = true;
@@ -122,8 +106,6 @@
     nerd-fonts.sauce-code-pro
     font-awesome
   ];
-
-  users.users.mark.shell = pkgs.fish;
 
   services.dbus.enable = true;
 
@@ -144,14 +126,6 @@
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
-  };
-
-  services.syncthing = {
-    enable = true;
-    group = "users";
-    user = "mark";
-    dataDir = "/home/mark"; # Default folder for new synced folders
-    configDir = "/home/mark/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
 
   services.openssh = {
