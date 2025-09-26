@@ -80,6 +80,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Rootless docker
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
