@@ -96,6 +96,7 @@
     unzip
     jq
     nettools
+    usbutils
 
     # development
     git
@@ -136,10 +137,12 @@
     # productivity
     typst
     python3
+    drawio
 
     # work
     xchm
     # kicad
+    pulseview
     gtkwave
     mumble
   ];
@@ -222,6 +225,12 @@
 
   # For automounting disks
   services.udisks2.enable = true;
+
+  # udev rules
+  services.udev = {
+    enable = true;
+    packages = with pkgs; [ libsigrok ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
