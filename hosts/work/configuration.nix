@@ -34,6 +34,7 @@
   networking.firewall = {
     enable = true;
     allowedUDPPorts = [
+      10100
       10101
       10102
     ];
@@ -97,6 +98,7 @@
     jq
     nettools
     usbutils
+    libnotify
 
     # development
     git
@@ -142,7 +144,7 @@
     # work
     xchm
     # kicad
-    pulseview
+    # pulseview
     gtkwave
     mumble
   ];
