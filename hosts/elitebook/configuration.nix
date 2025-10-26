@@ -30,6 +30,17 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [
+      10100
+      10101
+      10102
+      10103
+      10104
+      10105
+    ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -136,7 +147,11 @@
     curl
     wget
     fzf
+    unzip
     jq
+    nettools
+    usbutils
+    libnotify
 
     # gnome
     xdg-desktop-portal-gnome
@@ -170,7 +185,7 @@
 
     # work
     xchm
-    kicad
+    # kicad
     gtkwave
     mumble
   ];
