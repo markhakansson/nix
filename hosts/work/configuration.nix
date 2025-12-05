@@ -72,6 +72,7 @@
       "wheel"
       "storage"
       "wireshark"
+      "plugdev"
     ];
     packages = with pkgs; [ ];
   };
@@ -118,6 +119,9 @@
     vim
     vscode
 
+    # lsp
+    nil
+
     # wm (sway)
     grim
     mako
@@ -143,6 +147,8 @@
     typst
     python3
     drawio
+    libreoffice
+    nix-output-monitor
 
     # work
     xchm
