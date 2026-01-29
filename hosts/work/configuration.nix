@@ -77,6 +77,10 @@
     packages = with pkgs; [ ];
   };
 
+  users.groups = {
+    plugdev = {};
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -136,6 +140,7 @@
     eza
     fd
     ripgrep
+    ripgrep-all
     starship
     tmux
     zoxide
