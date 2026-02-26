@@ -117,6 +117,7 @@
     zathura
     imv
     htop
+    btop
 
     # editor
     helix
@@ -139,6 +140,7 @@
     bat
     eza
     fd
+    glow
     ripgrep
     ripgrep-all
     starship
